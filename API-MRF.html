@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API-MRF</title>
+
+    <a target="_blank" href="www.google.in"></a>
+</head>
+<body>
+    <!--<script src="/script2.1.js"></script> -->
+    <script>
+        var request = new XMLHttpRequest();
+request.open('GET','https://restcountries.eu/rest/v2/all',true);
+request.send();
+request.onload = function(){
+    var data = JSON.parse(this.response);
+    console.log(data);
+   
+    // 1.To print all countires in Asia region
+var creg = data.filter((x)=>x.region ==="Asia");
+console.log(creg);   
+
+    // 2.To print all population less than 200000
+var popu = data.filter((x)=>x.population < 200000);
+console.log(popu);
+
+    //3. to print the countire which uses USD
+
+    var conUSD = data.filter((x)=>{
+        for( var i in x.currencies){
+            if(x.currencies[i].code ==='USD'){
+                return true;
+            }
+        }
+    });
+
+    console.log(conUSD);
+
+    // 4.To print sum of total population of countries using reduce function.
+
+var totpop = data.reduce((x,y)=>x+y.population,0 );
+
+console.log(totpop);
+
+
+}
+
+    </script>
+    
+</body>
+</html>
